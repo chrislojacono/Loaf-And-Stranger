@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LoafAndStranger.Models;
+using LoafAndStranger.Data;
 using System.Net.Http;
 
 namespace LoafAndStranger.Controllers
@@ -13,17 +14,24 @@ namespace LoafAndStranger.Controllers
     [ApiController]
     public class LoavesController : ControllerBase
     {
+
+        LoafRepository _repo;
+        public LoavesController()
+        {
+            _repo = new LoafRepository();
+        }
+
         [HttpGet]
         public IActionResult GetAllLoaves()
         {
-            return Ok(_loaves);
+            return Ok(_repo.GetAll());
 
         }
 
         [HttpPost]
         public IActionResult AddALoaf(Loaf loaf)
         {
-            _loaves.Add(loaf);
+            _repo.AddLoaf(loaf);
             return Created("api/Loaves/1", loaf);
         }
     }
