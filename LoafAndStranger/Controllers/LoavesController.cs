@@ -8,7 +8,7 @@ using LoafAndStranger.Models;
 
 namespace LoafAndStranger.Controllers
 {
-    [Route("api/Loaves")]
+    [Route("api/loaves")]
     [ApiController]
     public class LoavesController : ControllerBase
     {
