@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoafAndStranger.Models;
 
-namespace LoafAndStranger.Data
+namespace LoafAndStranger.DataAccess
 {
     public class LoafRepository
     {
         static List<Loaf> _loaves = new List<Loaf>
             {
-                new Loaf {Price = 5.50, Size = LoafSize.Medium, Sliced = true, Type = "Rye"},
-                new Loaf {Price = 10.50, Size = LoafSize.Small, Sliced = true, Type = "Pumperknickle"}
+                new Loaf {Id= 1, Price = 5.50, Size = LoafSize.Medium, Sliced = true, Type = "Rye", WeightInOunces=6},
+                new Loaf {Id = 2, Price = 10.50, Size = LoafSize.Small, Sliced = true, Type = "Pumperknickle", WeightInOunces=15}
             };
 
         public List<Loaf> GetAll()
@@ -21,6 +21,8 @@ namespace LoafAndStranger.Data
 
         public void AddLoaf(Loaf loaf)
         {
+            var biggestExistingId = _loaves.Max(l => l.Id);
+            loaf.Id = biggestExistingId + 1;
             _loaves.Add(loaf);
         }
     }

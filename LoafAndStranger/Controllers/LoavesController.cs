@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using LoafAndStranger.Models;
-using LoafAndStranger.Data;
-using System.Net.Http;
+using LoafAndStranger.DataAccess;
 
 namespace LoafAndStranger.Controllers
 {
@@ -32,7 +26,7 @@ namespace LoafAndStranger.Controllers
         public IActionResult AddALoaf(Loaf loaf)
         {
             _repo.AddLoaf(loaf);
-            return Created("api/Loaves/1", loaf);
+            return Created($"api/Loaves/{loaf.Id}", loaf);
         }
     }
 }
