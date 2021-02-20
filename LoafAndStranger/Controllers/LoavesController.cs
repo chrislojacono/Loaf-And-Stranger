@@ -54,11 +54,6 @@ namespace LoafAndStranger.Controllers
         {
             var loaf = _repo.Get(id);
 
-            if (loaf.Sliced)
-            {
-                return NoContent();
-            }
-
             loaf.Sliced = true;
 
             return NoContent();
