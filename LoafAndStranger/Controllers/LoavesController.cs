@@ -20,9 +20,9 @@ namespace LoafAndStranger.Controllers
             };
 
         [HttpGet]
-        public List<Loaf> GetAllLoaves()
+        public IActionResult GetAllLoaves()
         {
-            return _loaves;
+            return Ok(_loaves);
 
         }
 
