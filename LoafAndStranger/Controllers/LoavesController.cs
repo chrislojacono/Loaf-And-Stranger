@@ -27,7 +27,7 @@ namespace LoafAndStranger.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddALoaf(Loaf loaf)
+        public IActionResult AddALoaf(Loaf loaf)
         {
             _loaves.Add(loaf);
             return Created("api/Loaves/1", loaf);
