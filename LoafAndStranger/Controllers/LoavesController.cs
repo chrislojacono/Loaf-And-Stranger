@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LoafAndStranger.Models;
+using System.Net.Http;
 
 namespace LoafAndStranger.Controllers
 {
-    [Route("api/loaves")]
+    [Route("api/Loaves")]
     [ApiController]
     public class LoavesController : ControllerBase
     {
@@ -26,9 +27,10 @@ namespace LoafAndStranger.Controllers
         }
 
         [HttpPost]
-        public void AddALoaf(Loaf loaf)
+        public HttpResponseMessage AddALoaf(Loaf loaf)
         {
             _loaves.Add(loaf);
+            return Created("api/Loaves/1", loaf);
         }
     }
 }
