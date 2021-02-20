@@ -30,6 +30,7 @@ namespace LoafAndStranger.Controllers
             _repo.AddLoaf(loaf);
             return Created($"api/Loaves/{loaf.Id}", loaf);
         }
+
         //GET to /api/loaves/{id} -----dynamic
 
         [HttpGet("{id}")]
@@ -42,6 +43,26 @@ namespace LoafAndStranger.Controllers
                 return NotFound("This loaf id does not exist.");
             }
             return Ok(loaf);
+        }
+
+        //Idempotency -> Idempotent
+        //Things that are Idempotent you should be able to do over and over and not change the result
+        //PUT and DELETE should be Idempotent
+        // /api/loaves/{id}/slice
+        [HttpPut("{id}/slice")]
+        public IActionResult SliceLoaf(int id)
+        {
+            var loaf = _repo.Get(id);
+
+            if (loaf.Sliced)
+            {
+                return NoContent();
+            }
+
+            loaf.Sliced = true;
+
+            return NoContent();
+
         }
     }
 }
