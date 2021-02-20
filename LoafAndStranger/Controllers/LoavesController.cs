@@ -12,14 +12,16 @@ namespace LoafAndStranger.Controllers
     [ApiController]
     public class LoavesController : ControllerBase
     {
-        [HttpGet]
-        public List<Loaf> GetAllLoaves()
-        {
-            return new List<Loaf>
+        List<Loaf> _loaves = new List<Loaf>
             {
             new Loaf {Price = 5.50, Size = LoafSize.Medium, Sliced = true, Type = "Rye"},
             new Loaf {Price = 10.50, Size = LoafSize.Small, Sliced = true, Type = "Pumperknickle"}
             };
+
+        [HttpGet]
+        public List<Loaf> GetAllLoaves()
+        {
+            return _loaves;
 
         }
     }
