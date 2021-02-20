@@ -25,5 +25,10 @@ namespace LoafAndStranger.DataAccess
             loaf.Id = biggestExistingId + 1;
             _loaves.Add(loaf);
         }
+        public Loaf Get(int id)
+        {
+            var loaf = _loaves.FirstOrDefault(bread => bread.Id == id);
+            return loaf;
+        }
     }
 }

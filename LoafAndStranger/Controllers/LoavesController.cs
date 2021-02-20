@@ -15,6 +15,7 @@ namespace LoafAndStranger.Controllers
             _repo = new LoafRepository();
         }
 
+        // Get to /api/loaves
         [HttpGet]
         public IActionResult GetAllLoaves()
         {
@@ -22,11 +23,25 @@ namespace LoafAndStranger.Controllers
 
         }
 
+        //POST to /api/loaves
         [HttpPost]
         public IActionResult AddALoaf(Loaf loaf)
         {
             _repo.AddLoaf(loaf);
             return Created($"api/Loaves/{loaf.Id}", loaf);
+        }
+        //GET to /api/loaves/{id} -----dynamic
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var loaf = _repo.Get(id);
+
+            if (loaf == null)
+            {
+                return NotFound("This loaf id does not exist.");
+            }
+            return Ok(loaf);
         }
     }
 }
