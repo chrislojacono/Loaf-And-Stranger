@@ -24,5 +24,11 @@ namespace LoafAndStranger.Controllers
             return _loaves;
 
         }
+
+        [HttpPost]
+        public void AddALoaf(Loaf loaf)
+        {
+            _loaves.Add(loaf);
+        }
     }
 }
