@@ -59,5 +59,13 @@ namespace LoafAndStranger.Controllers
             return NoContent();
 
         }
+
+        [HttpDelete ("{loafId}")]
+        public IActionResult PurchaseLoaf(int loafId)
+        {
+            _repo.Remove(loafId);
+
+            return Ok();
+        }
     }
 }
