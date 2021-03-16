@@ -11,12 +11,6 @@ namespace LoafAndStranger.DataAccess
     {
         const string ConnectionString = "Server=localhost;Database=LoafAndStranger;Trusted_Connection=True";
 
-        static List<Loaf> _loaves = new List<Loaf>
-            {
-                new Loaf {Id= 1, Price = 5, Size = LoafSize.Medium, Sliced = true, Type = "Rye", WeightInOunces=6},
-                new Loaf {Id = 2, Price = 10, Size = LoafSize.Small, Sliced = true, Type = "Pumperknickle", WeightInOunces=15}
-            };
-
         private Loaf MapLoaf(SqlDataReader reader)
         {
             var id = (int)reader["Id"]; //explicit cast (throws exception)
@@ -128,8 +122,19 @@ namespace LoafAndStranger.DataAccess
 
         public void Remove(int id)
         {
-            var loafToRemove = Get(id);
-            _loaves.Remove(loafToRemove);
+            using var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = "Delete from Loaves where Id = @Id";
+
+            command.Parameters.AddWithValue("Id", id);
+
+            command.ExecuteNonQuery();
+
+
+            //var loafToRemove = Get(id);
+            //_loaves.Remove(loafToRemove);
         }
     }
 }
