@@ -81,6 +81,7 @@ namespace LoafAndStranger.DataAccess
 
             command.CommandText = @"INSERT INTO [dbo].[Loaves]([Size],[Type],[WeightInOunces],[Price],[Sliced])
                                     VALUES(@Size,@Type,@WeightInOunces,@Price,@Sliced,)";
+
             command.Parameters.AddWithValue("Size", loaf.Size);
             command.Parameters.AddWithValue("Type", loaf.Type);
             command.Parameters.AddWithValue("WeightInOunces", loaf.WeightInOunces);
