@@ -20,7 +20,7 @@ namespace LoafAndStranger.DataAccess
 
             var loaves = new List<Loaf>();
             //create a connection
-            var connection = new SqlConnection("Server=localhost;Database=LoafAndStranger;Trusted_Connection=True");
+            using var connection = new SqlConnection("Server=localhost;Database=LoafAndStranger;Trusted_Connection=True");
             //open the connection
             connection.Open();
 
@@ -40,7 +40,7 @@ namespace LoafAndStranger.DataAccess
                 var id = (int)reader["Id"]; //explicit cast (throws exception)
                 var size = (LoafSize)reader["Size"];
                 var type = reader["Type"] as string; //implicit cast (returns null)
-                var price = (double)reader["Price"];
+                var price = (decimal)reader["Price"];
                 var weightInOunces = (int)reader["WeightInOunces"];
                 var sliced = (bool)reader["Sliced"];
                 var createdDate = (DateTime)reader["CreatedDate"];
@@ -56,7 +56,7 @@ namespace LoafAndStranger.DataAccess
                 };
                 loaves.Add(loaf);
             }
-
+            
             return loaves;
         }
 
@@ -66,10 +66,28 @@ namespace LoafAndStranger.DataAccess
             loaf.Id = biggestExistingId + 1;
             _loaves.Add(loaf);
         }
+
         public Loaf Get(int id)
         {
-            var loaf = _loaves.FirstOrDefault(bread => bread.Id == id);
-            return loaf;
+
+            var sql = @"select *
+                        from Loaves
+                        Where Id = 1";
+            //create a connection
+            var connection = new SqlConnection("Server=localhost;Database=LoafAndStranger;Trusted_Connection=True");
+            //open the connection
+            connection.Open();
+
+            //create a command
+            var command = connection.CreateCommand();
+
+            command.CommandText = sql;
+
+            //send the command to sql server or EXECUTE command
+            var reader = command.ExecuteReader();
+
+            //var loaf = _loaves.FirstOrDefault(bread => bread.Id == id);
+            //return loaf;
         }
 
         public void Remove(int id)
