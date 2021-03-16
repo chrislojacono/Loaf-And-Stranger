@@ -38,15 +38,26 @@ namespace LoafAndStranger.DataAccess
             while (reader.Read()) //reader.Read pulls one row at a time from the db
             {
                 var id = (int)reader["Id"]; //explicit cast (throws exception)
-                var size = (int)reader["Size"];
+                var size = (LoafSize)reader["Size"];
                 var type = reader["Type"] as string; //implicit cast (returns null)
                 var price = (double)reader["Price"];
                 var weightInOunces = (int)reader["WeightInOunces"];
                 var sliced = (bool)reader["Sliced"];
                 var createdDate = (DateTime)reader["CreatedDate"];
+
+                var loaf = new Loaf
+                {
+                    Id = id,
+                    Size = size,
+                    Type = type,
+                    Price = price,
+                    WeightInOunces = weightInOunces,
+                    Sliced = sliced,
+                };
+                loaves.Add(loaf);
             }
 
-           // return _loaves;
+            return loaves;
         }
 
         public void AddLoaf(Loaf loaf)
