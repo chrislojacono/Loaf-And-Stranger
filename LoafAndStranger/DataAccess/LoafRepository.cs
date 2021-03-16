@@ -73,8 +73,22 @@ namespace LoafAndStranger.DataAccess
 
         public void AddLoaf(Loaf loaf)
         {
-            
-           // _loaves.Add(loaf);
+            using var connection = new SqlConnection(ConnectionString);
+
+            connection.Open();
+
+            var command = connection.CreateCommand();
+
+            command.CommandText = @"INSERT INTO [dbo].[Loaves]([Size],[Type],[WeightInOunces],[Price],[Sliced])
+                                    VALUES(@Size,@Type,@WeightInOunces,@Price,@Sliced,)";
+            command.Parameters.AddWithValue("Size", loaf.Size);
+            command.Parameters.AddWithValue("Type", loaf.Type);
+            command.Parameters.AddWithValue("WeightInOunces", loaf.WeightInOunces);
+            command.Parameters.AddWithValue("Price", loaf.Price);
+            command.Parameters.AddWithValue("Sliced", loaf.Sliced);
+
+            command.ExecuteNonQuery();
+            // _loaves.Add(loaf);
         }
 
         public Loaf Get(int id)
