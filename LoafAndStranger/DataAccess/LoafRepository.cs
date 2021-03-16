@@ -17,7 +17,7 @@ namespace LoafAndStranger.DataAccess
 
         public List<Loaf> GetAll()
         {
-            var connection = new SqlConnection("Server=localhost;Database=myDataBase;Trusted_Connection=True");
+            var connection = new SqlConnection("Server=localhost;Database=LoafAndStranger;Trusted_Connection=True");
 
            // return _loaves;
         }
