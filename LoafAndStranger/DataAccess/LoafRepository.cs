@@ -17,7 +17,7 @@ namespace LoafAndStranger.DataAccess
         //        new Loaf {Id = 2, Price = 10.50, Size = LoafSize.Small, Sliced = true, Type = "Pumperknickle", WeightInOunces=15}
         //    };
 
-        private Loaf MapLoaf(SqlDataReader)
+        private Loaf MapLoaf(SqlDataReader reader)
         {
             var id = (int)reader["Id"]; //explicit cast (throws exception)
             var size = (LoafSize)reader["Size"];
