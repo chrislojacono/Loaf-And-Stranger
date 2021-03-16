@@ -44,8 +44,10 @@ namespace LoafAndStranger.DataAccess
         {
 
             var loaves = new List<Loaf>();
+
             //create a connection
             using var connection = new SqlConnection(ConnectionString);
+
             //open the connection
             connection.Open();
 
