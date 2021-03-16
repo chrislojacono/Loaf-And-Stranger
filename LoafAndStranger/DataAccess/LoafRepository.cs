@@ -73,8 +73,9 @@ namespace LoafAndStranger.DataAccess
             var sql = @"select *
                         from Loaves
                         Where Id = 1";
+
             //create a connection
-            var connection = new SqlConnection("Server=localhost;Database=LoafAndStranger;Trusted_Connection=True");
+            using var connection = new SqlConnection("Server=localhost;Database=LoafAndStranger;Trusted_Connection=True");
             //open the connection
             connection.Open();
 
