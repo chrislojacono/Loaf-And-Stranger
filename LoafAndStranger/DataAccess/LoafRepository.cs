@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LoafAndStranger.Models;
+using Microsoft.Data.SqlClient;
 
 namespace LoafAndStranger.DataAccess
 {
@@ -16,7 +17,9 @@ namespace LoafAndStranger.DataAccess
 
         public List<Loaf> GetAll()
         {
-            return _loaves;
+            var connection = new SqlConnection("Server=localhost;Database=myDataBase;Trusted_Connection=True");
+
+           // return _loaves;
         }
 
         public void AddLoaf(Loaf loaf)
