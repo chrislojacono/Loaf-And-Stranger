@@ -31,7 +31,7 @@ namespace LoafAndStranger.Controllers
             return Created($"api/Loaves/{loaf.Id}", loaf);
         }
 
-        //GET to /api/loaves/{id} -----dynamic
+        //GET to /api/loaves/{id} -----dynamic!
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
