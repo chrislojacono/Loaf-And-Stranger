@@ -9,13 +9,13 @@ namespace LoafAndStranger.DataAccess
 {
     public class LoafRepository
     {
-        const string ConnectionString = "Server=localhost;Database=LoafAndStranger;Trusted_Connection=True"
+        const string ConnectionString = "Server=localhost;Database=LoafAndStranger;Trusted_Connection=True";
 
-        //static List<Loaf> _loaves = new List<Loaf>
-        //    {
-        //        new Loaf {Id= 1, Price = 5.50, Size = LoafSize.Medium, Sliced = true, Type = "Rye", WeightInOunces=6},
-        //        new Loaf {Id = 2, Price = 10.50, Size = LoafSize.Small, Sliced = true, Type = "Pumperknickle", WeightInOunces=15}
-        //    };
+        static List<Loaf> _loaves = new List<Loaf>
+            {
+                new Loaf {Id= 1, Price = 5, Size = LoafSize.Medium, Sliced = true, Type = "Rye", WeightInOunces=6},
+                new Loaf {Id = 2, Price = 10, Size = LoafSize.Small, Sliced = true, Type = "Pumperknickle", WeightInOunces=15}
+            };
 
         private Loaf MapLoaf(SqlDataReader reader)
         {
