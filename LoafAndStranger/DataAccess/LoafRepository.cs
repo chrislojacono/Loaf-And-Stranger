@@ -80,6 +80,7 @@ namespace LoafAndStranger.DataAccess
             var command = connection.CreateCommand();
 
             command.CommandText = @"INSERT INTO [dbo].[Loaves]([Size],[Type],[WeightInOunces],[Price],[Sliced])
+                                    OUTPUT inserted.Id
                                     VALUES(@Size,@Type,@WeightInOunces,@Price,@Sliced,)";
 
             command.Parameters.AddWithValue("Size", loaf.Size);
@@ -88,7 +89,12 @@ namespace LoafAndStranger.DataAccess
             command.Parameters.AddWithValue("Price", loaf.Price);
             command.Parameters.AddWithValue("Sliced", loaf.Sliced);
 
-            command.ExecuteNonQuery();
+            var numberOfRows = (int)command.ExecuteScalar();
+
+            if(numberOfRows != 1)
+            {
+                throw new Exception("COuldn't insert the row");
+            }
             // _loaves.Add(loaf);
         }
 
