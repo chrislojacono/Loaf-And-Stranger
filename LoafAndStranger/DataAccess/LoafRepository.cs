@@ -17,7 +17,20 @@ namespace LoafAndStranger.DataAccess
 
         public List<Loaf> GetAll()
         {
+            //create a connection
             var connection = new SqlConnection("Server=localhost;Database=LoafAndStranger;Trusted_Connection=True");
+            //open the connection
+            connection.Open();
+
+            //create a command
+            var command = connection.CreateCommand();
+
+            //Telling the command what you want to do
+            command.CommandText = @"select * 
+                                    from Loaves";
+
+            //send the command to sql server or EXECUTE command
+            command.ExecuteReader();
 
            // return _loaves;
         }
