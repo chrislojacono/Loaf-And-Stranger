@@ -89,13 +89,9 @@ namespace LoafAndStranger.DataAccess
             command.Parameters.AddWithValue("Price", loaf.Price);
             command.Parameters.AddWithValue("Sliced", loaf.Sliced);
 
-            var numberOfRows = (int)command.ExecuteScalar();
+            var id = (int)command.ExecuteScalar();
 
-            if(numberOfRows != 1)
-            {
-                throw new Exception("COuldn't insert the row");
-            }
-            // _loaves.Add(loaf);
+            loaf.Id = id;
         }
 
         public Loaf Get(int id)
