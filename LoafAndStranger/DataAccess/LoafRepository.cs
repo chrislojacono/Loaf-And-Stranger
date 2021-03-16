@@ -30,7 +30,13 @@ namespace LoafAndStranger.DataAccess
                                     from Loaves";
 
             //send the command to sql server or EXECUTE command
-            command.ExecuteReader();
+            var reader = command.ExecuteReader();
+
+            // loop over results
+            while (reader.Read()) //reader.Read pulls one row at a time from the db
+            {
+
+            }
 
            // return _loaves;
         }
