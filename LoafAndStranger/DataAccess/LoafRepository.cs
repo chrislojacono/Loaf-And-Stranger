@@ -17,6 +17,8 @@ namespace LoafAndStranger.DataAccess
 
         public List<Loaf> GetAll()
         {
+
+            var loaves = new List<Loaf>();
             //create a connection
             var connection = new SqlConnection("Server=localhost;Database=LoafAndStranger;Trusted_Connection=True");
             //open the connection
@@ -35,7 +37,13 @@ namespace LoafAndStranger.DataAccess
             // loop over results
             while (reader.Read()) //reader.Read pulls one row at a time from the db
             {
-
+                var id = (int)reader["Id"]; //explicit cast (throws exception)
+                var size = (int)reader["Size"];
+                var type = reader["Type"] as string; //implicit cast (returns null)
+                var price = (double)reader["Price"];
+                var weightInOunces = (int)reader["WeightInOunces"];
+                var sliced = (bool)reader["Sliced"];
+                var createdDate = (DateTime)reader["CreatedDate"];
             }
 
            // return _loaves;
