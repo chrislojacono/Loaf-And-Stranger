@@ -73,9 +73,8 @@ namespace LoafAndStranger.DataAccess
 
         public void AddLoaf(Loaf loaf)
         {
-            var biggestExistingId = _loaves.Max(bread => bread.Id);
-            loaf.Id = biggestExistingId + 1;
-            _loaves.Add(loaf);
+            
+           // _loaves.Add(loaf);
         }
 
         public Loaf Get(int id)
