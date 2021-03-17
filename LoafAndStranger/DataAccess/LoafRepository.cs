@@ -51,23 +51,30 @@ namespace LoafAndStranger.DataAccess
 
         public void AddLoaf(Loaf loaf)
         {
-            using var connection = new SqlConnection(ConnectionString);
+            using var db = new SqlConnection(ConnectionString);
 
-            connection.Open();
-
-            var command = connection.CreateCommand();
-
-            command.CommandText = @"INSERT INTO [dbo].[Loaves]([Size],[Type],[WeightInOunces],[Price],[Sliced])
+            var sql = @"INSERT INTO [dbo].[Loaves]([Size],[Type],[WeightInOunces],[Price],[Sliced])
                                     OUTPUT inserted.Id
                                     VALUES(@Size,@Type,@WeightInOunces,@Price,@Sliced,)";
 
-            command.Parameters.AddWithValue("Size", loaf.Size);
-            command.Parameters.AddWithValue("Type", loaf.Type);
-            command.Parameters.AddWithValue("WeightInOunces", loaf.WeightInOunces);
-            command.Parameters.AddWithValue("Price", loaf.Price);
-            command.Parameters.AddWithValue("Sliced", loaf.Sliced);
+            var id = db.ExecuteScalar<int>(sql, loaf);
 
-            var id = (int)command.ExecuteScalar();
+           
+
+            //ADO.Net way
+            //connection.Open();
+
+            //var command = connection.CreateCommand();
+
+            //command.CommandText = @;
+
+            //command.Parameters.AddWithValue("Size", loaf.Size);
+            //command.Parameters.AddWithValue("Type", loaf.Type);
+            //command.Parameters.AddWithValue("WeightInOunces", loaf.WeightInOunces);
+            //command.Parameters.AddWithValue("Price", loaf.Price);
+            //command.Parameters.AddWithValue("Sliced", loaf.Sliced);
+
+            //var id = (int)command.ExecuteScalar();
 
             loaf.Id = id;
         }
