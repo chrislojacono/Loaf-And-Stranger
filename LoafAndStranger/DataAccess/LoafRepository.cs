@@ -79,29 +79,11 @@ namespace LoafAndStranger.DataAccess
                         from Loaves
                         Where Id = @Id";
 
-            //create a connection
-            using var connection = new SqlConnection(ConnectionString);
-            //open the connection
-            connection.Open();
+            using var db = new SqlConnection(ConnectionString);
 
-            //create a command
-            var command = connection.CreateCommand();
+            var loaf = db.QueryFirstOrDefault<Loaf>(sql, new { Id = id });
 
-            command.Parameters.AddWithValue("Id", id);
-
-            command.CommandText = sql;
-
-            //send the command to sql server or EXECUTE command
-            var reader = command.ExecuteReader();
-
-            if (reader.Read())
-            {
-                var loaf = MapLoaf(reader);
-                return loaf;
-            }
-            return null;
-            //var loaf = _loaves.FirstOrDefault(bread => bread.Id == id);
-            //return loaf;
+            return loaf;
         }
 
         public void Remove(int id)
