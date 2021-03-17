@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoafAndStranger.Models;
 using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace LoafAndStranger.DataAccess
 {
@@ -37,32 +38,15 @@ namespace LoafAndStranger.DataAccess
         public List<Loaf> GetAll()
         {
 
-            var loaves = new List<Loaf>();
-
-            //create a connection
             using var connection = new SqlConnection(ConnectionString);
 
-            //open the connection
-            connection.Open();
+            var sql = @"select * 
+                        from Loaves";
 
-            //create a command
-            var command = connection.CreateCommand();
+            var results =  connection.Query<Loaf>(sql).ToList();
+            //Name of properties HAVE to be the same as the names in SQL
 
-            //Telling the command what you want to do
-            command.CommandText = @"select * 
-                                    from Loaves";
-
-            //send the command to sql server or EXECUTE command
-            var reader = command.ExecuteReader();
-
-            // loop over results
-            while (reader.Read()) //reader.Read pulls one row at a time from the db
-            {
-
-                loaves.Add(MapLoaf(reader));
-            }
-            
-            return loaves;
+            return results;
         }
 
         public void AddLoaf(Loaf loaf)
