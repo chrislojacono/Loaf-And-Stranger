@@ -95,19 +95,12 @@ namespace LoafAndStranger.DataAccess
 
         public void Remove(int id)
         {
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using var db = new SqlConnection(ConnectionString);
 
-            var command = connection.CreateCommand();
-            command.CommandText = "Delete from Loaves where Id = @Id";
+            var sql = "Delete from Loaves where Id = @id";
 
-            command.Parameters.AddWithValue("Id", id);
-
-            command.ExecuteNonQuery();
-
-
-            //var loafToRemove = Get(id);
-            //_loaves.Remove(loafToRemove);
+            db.Execute(sql, new { id });
+            
         }
     }
 }
