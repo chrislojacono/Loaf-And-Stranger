@@ -16,8 +16,8 @@ namespace LoafAndStranger.DataAccess
         {
             using var db = new SqlConnection(ConnectionString);
 
-            var sql = @"select * 
-                        from Tops";
+            var sql = @"Select * 
+                        From Tops";
 
             var results = db.Query<Top>(sql).ToList();
             //Name of properties HAVE to be the same as the names in SQL
