@@ -4,18 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoafAndStranger.Models;
 using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace LoafAndStranger.DataAccess
 {
     public class LoafRepository
     {
-        const string ConnectionString = "Server=localhost;Database=LoafAndStranger;Trusted_Connection=True"
-
-        //static List<Loaf> _loaves = new List<Loaf>
-        //    {
-        //        new Loaf {Id= 1, Price = 5.50, Size = LoafSize.Medium, Sliced = true, Type = "Rye", WeightInOunces=6},
-        //        new Loaf {Id = 2, Price = 10.50, Size = LoafSize.Small, Sliced = true, Type = "Pumperknickle", WeightInOunces=15}
-        //    };
+        const string ConnectionString = "Server=localhost;Database=LoafAndStranger;Trusted_Connection=True";
 
         private Loaf MapLoaf(SqlDataReader reader)
         {
@@ -43,37 +38,45 @@ namespace LoafAndStranger.DataAccess
         public List<Loaf> GetAll()
         {
 
-            var loaves = new List<Loaf>();
-            //create a connection
             using var connection = new SqlConnection(ConnectionString);
-            //open the connection
-            connection.Open();
 
-            //create a command
-            var command = connection.CreateCommand();
+            var sql = @"select * 
+                        from Loaves";
 
-            //Telling the command what you want to do
-            command.CommandText = @"select * 
-                                    from Loaves";
+            var results =  connection.Query<Loaf>(sql).ToList();
+            //Name of properties HAVE to be the same as the names in SQL
 
-            //send the command to sql server or EXECUTE command
-            var reader = command.ExecuteReader();
-
-            // loop over results
-            while (reader.Read()) //reader.Read pulls one row at a time from the db
-            {
-
-                loaves.Add(MapLoaf(reader));
-            }
-            
-            return loaves;
+            return results;
         }
 
         public void AddLoaf(Loaf loaf)
         {
-            var biggestExistingId = _loaves.Max(bread => bread.Id);
-            loaf.Id = biggestExistingId + 1;
-            _loaves.Add(loaf);
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"INSERT INTO [dbo].[Loaves]([Size],[Type],[WeightInOunces],[Price],[Sliced])
+                                    OUTPUT inserted.Id
+                                    VALUES(@Size,@Type,@WeightInOunces,@Price,@Sliced,)";
+
+            var id = db.ExecuteScalar<int>(sql, loaf);
+
+           
+
+            //ADO.Net way
+            //connection.Open();
+
+            //var command = connection.CreateCommand();
+
+            //command.CommandText = @;
+
+            //command.Parameters.AddWithValue("Size", loaf.Size);
+            //command.Parameters.AddWithValue("Type", loaf.Type);
+            //command.Parameters.AddWithValue("WeightInOunces", loaf.WeightInOunces);
+            //command.Parameters.AddWithValue("Price", loaf.Price);
+            //command.Parameters.AddWithValue("Sliced", loaf.Sliced);
+
+            //var id = (int)command.ExecuteScalar();
+
+            loaf.Id = id;
         }
 
         public Loaf Get(int id)
@@ -83,35 +86,21 @@ namespace LoafAndStranger.DataAccess
                         from Loaves
                         Where Id = @Id";
 
-            //create a connection
-            using var connection = new SqlConnection(ConnectionString);
-            //open the connection
-            connection.Open();
+            using var db = new SqlConnection(ConnectionString);
 
-            //create a command
-            var command = connection.CreateCommand();
+            var loaf = db.QueryFirstOrDefault<Loaf>(sql, new { Id = id });
 
-            command.Parameters.AddWithValue("Id", id);
-
-            command.CommandText = sql;
-
-            //send the command to sql server or EXECUTE command
-            var reader = command.ExecuteReader();
-
-            if (reader.Read())
-            {
-                var loaf = MapLoaf(reader);
-                return loaf;
-            }
-            return null;
-            //var loaf = _loaves.FirstOrDefault(bread => bread.Id == id);
-            //return loaf;
+            return loaf;
         }
 
         public void Remove(int id)
         {
-            var loafToRemove = Get(id);
-            _loaves.Remove(loafToRemove);
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = "Delete from Loaves where Id = @id";
+
+            db.Execute(sql, new { id });
+            
         }
     }
 }
