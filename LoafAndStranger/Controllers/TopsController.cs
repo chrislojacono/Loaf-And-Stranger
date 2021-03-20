@@ -28,7 +28,9 @@ namespace LoafAndStranger.Controllers
         [HttpPost]
         public IActionResult AddTop(AddTopCommand command)
         {
-            _repo.Add(command.NumberOfSeats);
+            var newTop = _repo.Add(command.NumberOfSeats);
+
+            return Created($"/api/tops/{newTop.Id}", newTop);
         }
     }
 }

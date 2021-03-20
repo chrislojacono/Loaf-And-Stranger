@@ -29,7 +29,13 @@ namespace LoafAndStranger.DataAccess
 
         public Top Add(int numberOfSeats)
         {
-            
-        }
+
+                using var db = new SqlConnection(ConnectionString);
+
+                var sql = @"INSERT INTO [dbo].[Tops]([NumberOfSeats])
+                            output inserted.*
+                            VALUES(@numberOfSeats)";
+            var top = db.QuerySingle<Top>(sql, new { numberOfSeats });
+            return top;
     }
 }
