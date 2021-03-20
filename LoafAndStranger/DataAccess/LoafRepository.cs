@@ -43,7 +43,7 @@ namespace LoafAndStranger.DataAccess
             var sql = @"select * 
                         from Loaves";
 
-            var results =  connection.Query<Loaf>(sql).ToList();
+            var results = connection.Query<Loaf>(sql).ToList();
             //Name of properties HAVE to be the same as the names in SQL
 
             return results;
@@ -59,7 +59,7 @@ namespace LoafAndStranger.DataAccess
 
             var id = db.ExecuteScalar<int>(sql, loaf);
 
-           
+
 
             //ADO.Net way
             //connection.Open();
@@ -100,7 +100,31 @@ namespace LoafAndStranger.DataAccess
             var sql = "Delete from Loaves where Id = @id";
 
             db.Execute(sql, new { id });
-            
+
+        }
+
+        public void Update(Loaf loaf)
+        {
+            var sql = @"update Loaves
+                        Set Price = @price,
+                            Size = @size,
+                            WeightInOunces = @weightinounces,
+                            Type = @type,
+                            Sliced = @sliced,
+                        Where Id = @id";
+            using var db = new SqlConnection(ConnectionString);
+            db.Execute(sql, loaf);
+        }
+
+        public void Slice(int id)
+        {
+            var sql = @"update Loaves
+                        Set Sliced = 1
+                        Where Id = @id";
+            using var db = new SqlConnection(ConnectionString);
+
+            //anonymous type with implicit property naming
+            db.Execute(sql, new { id });
         }
     }
 }

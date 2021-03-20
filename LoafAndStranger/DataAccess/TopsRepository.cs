@@ -21,9 +21,21 @@ namespace LoafAndStranger.DataAccess
                         From Tops";
 
             var results = db.Query<Top>(sql);
+
             //Name of properties HAVE to be the same as the names in SQL
 
             return results;
         }
+
+        public Top Add(int numberOfSeats)
+        {
+
+                using var db = new SqlConnection(ConnectionString);
+
+                var sql = @"INSERT INTO [dbo].[Tops]([NumberOfSeats])
+                            output inserted.*
+                            VALUES(@numberOfSeats)";
+            var top = db.QuerySingle<Top>(sql, new { numberOfSeats });
+            return top;
     }
 }
