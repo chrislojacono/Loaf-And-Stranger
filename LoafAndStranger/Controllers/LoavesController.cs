@@ -56,6 +56,8 @@ namespace LoafAndStranger.Controllers
 
             loaf.Sliced = true;
 
+            _repo.Slice();
+
             return NoContent();
 
         }
