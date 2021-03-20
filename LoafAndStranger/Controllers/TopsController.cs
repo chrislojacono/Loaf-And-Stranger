@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LoafAndStranger.Models;
 
 namespace LoafAndStranger.Controllers
 {
@@ -22,6 +23,12 @@ namespace LoafAndStranger.Controllers
         public IActionResult GetAllTops()
         {
             return Ok(_repo.GetAll());
+        }
+
+        [HttpPost]
+        public IActionResult AddTop(AddTopCommand command)
+        {
+            _repo.Add(command.NumberOfSeats);
         }
     }
 }

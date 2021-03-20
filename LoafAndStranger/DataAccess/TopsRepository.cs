@@ -26,5 +26,10 @@ namespace LoafAndStranger.DataAccess
 
             return results;
         }
+
+        public Top Add(int numberOfSeats)
+        {
+            
+        }
     }
 }
