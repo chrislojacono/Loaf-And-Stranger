@@ -103,7 +103,7 @@ namespace LoafAndStranger.DataAccess
 
         }
 
-        internal void Update(Loaf loaf)
+        public void Update(Loaf loaf)
         {
             var sql = @"update Loaves
                         Set Price = @price,
@@ -111,9 +111,20 @@ namespace LoafAndStranger.DataAccess
                             WeightInOunces = @weightinounces,
                             Type = @type,
                             Sliced = @sliced,
-                            Where Id = @id";
+                        Where Id = @id";
             using var db = new SqlConnection(ConnectionString);
             db.Execute(sql, loaf);
+        }
+
+        public void Slice(int id)
+        {
+            var sql = @"update Loaves
+                        Set Sliced = 1
+                        Where Id = @id";
+            using var db = new SqlConnection(ConnectionString);
+
+            //anonymous type with implicit property naming
+            db.Execute(sql, new { id });
         }
     }
 }
