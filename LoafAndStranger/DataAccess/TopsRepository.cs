@@ -21,6 +21,7 @@ namespace LoafAndStranger.DataAccess
                         From Tops";
 
             var results = db.Query<Top>(sql);
+
             //Name of properties HAVE to be the same as the names in SQL
 
             return results;
