@@ -11,5 +11,8 @@ namespace LoafAndStranger.Models
         public string Name { get; set; }
         public DateTime ArrivalDate { get; set; }
 
+        public int TopId { get; set; }
+
+
     }
 }
