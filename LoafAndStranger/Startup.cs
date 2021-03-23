@@ -35,6 +35,8 @@ namespace LoafAndStranger
 
             services.AddSingleton(Configuration);
             services.AddTransient<StrangersRepository>();
+            services.AddTransient<LoafRepository>();
+            services.AddTransient<TopsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
