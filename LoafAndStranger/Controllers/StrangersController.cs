@@ -13,15 +13,17 @@ namespace LoafAndStranger.Controllers
     public class StrangersController : ControllerBase
     {
         StrangersRepository _repo;
-        public StrangersController()
+        public StrangersController(StrangersRepository repo)
         {
-            _repo = new StrangersRepository();
+            _repo = repo;
         }
 
         [HttpGet]
         public IActionResult GetAllStrangers()
         {
+            var strangers = _repo.GetAll();
 
+            return Ok(strangers);
         }
     }
 }
