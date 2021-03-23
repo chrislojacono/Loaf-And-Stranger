@@ -17,25 +17,47 @@ namespace LoafAndStranger.DataAccess
         {
             using var db = new SqlConnection(ConnectionString);
 
-            var sql = @"Select * 
+
+            //var strangersSql = "select * from strangers where topid = @id";
+
+            //var tops = db.Query<Top>(topsSql);
+
+            //foreach (var top in tops)
+            //{
+            //    var relatedStrangers = db.Query<Stranger>(strangersSql, top);
+            //    top.Strangers = relatedStrangers.ToList();
+            //}
+            var topsSql = @"Select * 
                         From Tops";
+            var strangersSql = "select * from strangers where topid is not null";
 
-            var results = db.Query<Top>(sql);
+            var tops = db.Query<Top>(topsSql);
+            var strangers = db.Query<Stranger>(strangersSql);
 
-            //Name of properties HAVE to be the same as the names in SQL
+            foreach (var top in tops)
+            {
+                top.Strangers = strangers.Where(stranger => stranger.TopId == top.Id).ToList();
+            }
 
-            return results;
+            //var groupedStrangers = strangers.GroupBy(s => s.TopId);
+
+            //foreach (var groupedStranger in groupedStrangers)
+            //{
+            //    tops.First(tops => tops.Id == groupedStranger.Key).Strangers = groupedStranger.ToList();
+            //}
+            return tops;
         }
 
         public Top Add(int numberOfSeats)
         {
 
-                using var db = new SqlConnection(ConnectionString);
+            using var db = new SqlConnection(ConnectionString);
 
-                var sql = @"INSERT INTO [dbo].[Tops]([NumberOfSeats])
+            var sql = @"INSERT INTO [dbo].[Tops]([NumberOfSeats])
                             output inserted.*
                             VALUES(@numberOfSeats)";
             var top = db.QuerySingle<Top>(sql, new { numberOfSeats });
             return top;
+        }
     }
 }
