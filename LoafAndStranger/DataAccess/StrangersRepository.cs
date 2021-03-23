@@ -9,9 +9,10 @@ namespace LoafAndStranger.DataAccess
 {
     public class StrangersRepository
     {
+        readonly string ConnectionString;
         public StrangersRepository(IConfiguration config)
         {
-
+            ConnectionString = config.GetConnectionString("LoafAndStranger");
         }
         public IEnumerable<Stranger> GetAll()
         {
