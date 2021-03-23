@@ -10,7 +10,6 @@ namespace LoafAndStranger.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime ArrivalDate { get; set; }
-
         public int TopId { get; set; }
 
 
