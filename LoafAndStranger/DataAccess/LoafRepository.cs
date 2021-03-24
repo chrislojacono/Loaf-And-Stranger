@@ -18,6 +18,8 @@ namespace LoafAndStranger.DataAccess
             _db = db;
         }
 
+
+        // This is for ADO.Net
         //private Loaf MapLoaf(SqlDataReader reader)
         //{
         //    var id = (int)reader["Id"]; //explicit cast (throws exception)
