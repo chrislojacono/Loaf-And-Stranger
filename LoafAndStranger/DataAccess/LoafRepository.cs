@@ -134,8 +134,8 @@ namespace LoafAndStranger.DataAccess
 
             _db.SaveChanges();
 
-           // _db.Loaves.Attach(loaf).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-
+            // _db.Loaves.Attach(loaf).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            // _db.SaveChanges();
         }
 
         public void Slice(int id)
