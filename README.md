@@ -2,9 +2,7 @@
 This is a project we are doing in-class to learn how to build our own APIs using ASP.Net Core and connect them to SQL databases
 
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b491560-bf2b-4e95-9107-39a70f5d03ba/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b491560-bf2b-4e95-9107-39a70f5d03ba/Untitled.png)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c926fd5d-993a-4a89-a18d-0947b83239cc/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c926fd5d-993a-4a89-a18d-0947b83239cc/Untitled.png)
 
 # Requirements:
 
