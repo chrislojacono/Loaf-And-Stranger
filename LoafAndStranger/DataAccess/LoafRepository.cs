@@ -127,7 +127,9 @@ namespace LoafAndStranger.DataAccess
             //                Type = @type,
             //                Sliced = @sliced,
             //            Where Id = @id";
+
             //using var db = new SqlConnection(ConnectionString);
+
             //db.Execute(sql, loaf);
 
             var existingLoaf = Get(loaf.Id);
