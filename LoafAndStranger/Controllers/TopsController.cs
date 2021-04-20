@@ -15,10 +15,11 @@ namespace LoafAndStranger.Controllers
     {
         TopsRepository _repo;
 
-        public TopsController()
+        public TopsController(TopsRepository repo)
         {
-            _repo = new TopsRepository();
+            _repo = repo;
         }
+
         [HttpGet]
         public IActionResult GetAllTops()
         {
